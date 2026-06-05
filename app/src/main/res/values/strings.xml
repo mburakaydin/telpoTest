@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">telpotest</string>
+    <string name="app_name">Telpo Test</string>
+    <string name="screen_title">MIFARE Demo</string>
+    <string name="status_initializing">Okuyucu başlatılıyor...</string>
+    <string name="button_poll_card">Kartı Tara</string>
+    <string name="label_key">Anahtar</string>
+    <string name="default_mifare_key">FFFFFFFFFFFF</string>
+    <string name="button_authenticate">Doğrula</string>
+    <string name="label_read_write_data">Okuma / Yazma Verisi</string>
+    <string name="hint_read_write_data">Okunan veri burada görünür. Yazma işlemi bu değeri hex olarak kullanır.</string>
+    <string name="button_read">Oku</string>
+    <string name="button_write">Yaz</string>
+    <string name="status_reader_initialized">Okuyucu başlatıldı. Lütfen MIFARE kartı yerleştirip Kartı Tara düğmesine basın.</string>
+    <string name="status_reader_init_failed">Okuyucu başlatılamadı: %1$s</string>
+    <string name="status_polling_card">Kart taranıyor...</string>
+    <string name="status_card_detected">Kart algılandı.</string>
+    <string name="status_card_not_detected">Kart algılanamadı.</string>
+    <string name="status_authenticating">Doğrulanıyor...</string>
+    <string name="status_card_authenticated">Kart doğrulandı.</string>
+    <string name="status_authentication_failed">Doğrulama başarısız.</string>
+    <string name="status_reading_card">Kart okunuyor...</string>
+    <string name="status_card_read_failed">Kart okuma başarısız.</string>
+    <string name="status_card_read_success">Kart başarıyla okundu.</string>
+    <string name="status_write_data_invalid">Yazılacak veri boş olmamalı ve 16 baytlık bloklar halinde hex olmalıdır.</string>
+    <string name="status_writing_card">Karta yazılıyor...</string>
+    <string name="status_card_write_success">Kart başarıyla yazıldı.</string>
+    <string name="status_card_write_failed">Kart yazma başarısız.</string>
+    <string name="status_operation_failed">İşlem başarısız: %1$s</string>
+    <string name="status_invalid_hex">Lütfen geçerli bir hex değeri girin.</string>
+    <string name="status_key_length_invalid">Anahtar %1$d bayt (%2$d hex karakter) olmalıdır.</string>
 </resources>

@@ -37,11 +37,11 @@ class MainActivity : ComponentActivity() {
         lifecycleScope.launch {
             runCatching { deviceManager.init() }
                 .onSuccess {
-                    showStatus("Reader initialized. Please place a MIFARE card and press Poll Card.")
+                    showStatus(getString(R.string.status_reader_initialized))
                     setActionsEnabled(true)
                 }
                 .onFailure {
-                    showStatus("Reader initialization failed: ${it.message}")
+                    showStatus(getString(R.string.status_reader_init_failed, it.message.orEmpty()))
                 }
         }
 
@@ -52,32 +52,40 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun runPoll() = lifecycleScope.launch {
-        runAction("Polling card...") {
+        runAction(getString(R.string.status_polling_card)) {
             val success = deviceManager.poll()
-            if (success) "Card detected." else "No card detected."
+            if (success) {
+                getString(R.string.status_card_detected)
+            } else {
+                getString(R.string.status_card_not_detected)
+            }
         }
     }
 
     private fun runAuthenticate() = lifecycleScope.launch {
         val key = parseHex(keyEditText.text.toString(), expectedBytes = 6) ?: return@launch
-        runAction("Authenticating...") {
+        runAction(getString(R.string.status_authenticating)) {
             val success = withContext(Dispatchers.IO) {
                 deviceManager.mifareAuthenticate(MIFARE_BLOCK, KEY_TYPE_A, key)
             }
-            if (success) "Card authenticated." else "Authentication failed."
+            if (success) {
+                getString(R.string.status_card_authenticated)
+            } else {
+                getString(R.string.status_authentication_failed)
+            }
         }
     }
 
     private fun runRead() = lifecycleScope.launch {
-        runAction("Reading card...") {
+        runAction(getString(R.string.status_reading_card)) {
             val data = withContext(Dispatchers.IO) {
                 deviceManager.mifareRead(MIFARE_BLOCK, MIFARE_BLOCK_LENGTH)
             }
             if (data == null) {
-                "Card read failed."
+                getString(R.string.status_card_read_failed)
             } else {
                 dataEditText.setText(data.toHexStr())
-                "Card read successfully."
+                getString(R.string.status_card_read_success)
             }
         }
     }
@@ -85,22 +93,28 @@ class MainActivity : ComponentActivity() {
     private fun runWrite() = lifecycleScope.launch {
         val data = parseHex(dataEditText.text.toString()) ?: return@launch
         if (data.isEmpty() || data.size % MIFARE_BLOCK_LENGTH != 0) {
-            showStatus("Write data must be a non-empty hex value in 16-byte blocks.")
+            showStatus(getString(R.string.status_write_data_invalid))
             return@launch
         }
 
-        runAction("Writing card...") {
+        runAction(getString(R.string.status_writing_card)) {
             val success = withContext(Dispatchers.IO) {
                 deviceManager.mifareWrite(MIFARE_BLOCK, data)
             }
-            if (success) "Card written successfully." else "Card write failed."
+            if (success) {
+                getString(R.string.status_card_write_success)
+            } else {
+                getString(R.string.status_card_write_failed)
+            }
         }
     }
 
     private suspend fun runAction(workingMessage: String, action: suspend () -> String) {
         setActionsEnabled(false)
         showStatus(workingMessage)
-        val message = runCatching { action() }.getOrElse { "Operation failed: ${it.message}" }
+        val message = runCatching { action() }.getOrElse {
+            getString(R.string.status_operation_failed, it.message.orEmpty())
+        }
         showStatus(message)
         setActionsEnabled(true)
     }
@@ -108,13 +122,19 @@ class MainActivity : ComponentActivity() {
     private fun parseHex(value: String, expectedBytes: Int? = null): ByteArray? {
         val cleanValue = value.filterNot { it.isWhitespace() }.uppercase()
         if (cleanValue.isEmpty() || cleanValue.length % 2 != 0 || !cleanValue.matches(HEX_REGEX)) {
-            showStatus("Please enter a valid hex value.")
+            showStatus(getString(R.string.status_invalid_hex))
             return null
         }
 
         val bytes = cleanValue.chunked(2).map { it.toInt(16).toByte() }.toByteArray()
         if (expectedBytes != null && bytes.size != expectedBytes) {
-            showStatus("Key must be $expectedBytes bytes (${expectedBytes * 2} hex characters).")
+            showStatus(
+                getString(
+                    R.string.status_key_length_invalid,
+                    expectedBytes,
+                    expectedBytes * 2
+                )
+            )
             return null
         }
 

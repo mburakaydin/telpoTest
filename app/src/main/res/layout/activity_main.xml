@@ -14,7 +14,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MIFARE Demo"
+            android:text="@string/screen_title"
             android:textColor="#1F2937"
             android:textSize="26sp"
             android:textStyle="bold" />
@@ -26,7 +26,7 @@
             android:layout_marginTop="12dp"
             android:background="#EEF2FF"
             android:padding="12dp"
-            android:text="Initializing reader..."
+            android:text="@string/status_initializing"
             android:textColor="#1F2937"
             android:textSize="16sp" />
 
@@ -35,13 +35,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Poll Card" />
+            android:text="@string/button_poll_card" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Key"
+            android:text="@string/label_key"
             android:textColor="#374151"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -50,23 +50,23 @@
             android:id="@+id/keyEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="FFFFFFFFFFFF"
+            android:hint="@string/default_mifare_key"
             android:inputType="textCapCharacters|textNoSuggestions"
             android:maxLines="1"
-            android:text="FFFFFFFFFFFF" />
+            android:text="@string/default_mifare_key" />
 
         <Button
             android:id="@+id/authenticateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Authenticate" />
+            android:text="@string/button_authenticate" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
-            android:text="Read / Write Data"
+            android:text="@string/label_read_write_data"
             android:textColor="#374151"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:gravity="top|start"
-            android:hint="Read data appears here. Write uses this value as hex."
+            android:hint="@string/hint_read_write_data"
             android:inputType="textMultiLine|textCapCharacters|textNoSuggestions"
             android:minLines="5"
             android:padding="12dp" />
@@ -86,14 +86,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Read" />
+            android:text="@string/button_read" />
 
         <Button
             android:id="@+id/writeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Write" />
+            android:text="@string/button_write" />
 
     </LinearLayout>
 </ScrollView>
