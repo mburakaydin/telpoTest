@@ -5,7 +5,10 @@
     <string name="button_poll_card">Poll Card</string>
     <string name="label_key">Key</string>
     <string name="default_mifare_key">FFFFFFFFFFFF</string>
+    <string name="switch_use_key_b">Use Key B (off = Key A)</string>
     <string name="button_authenticate">Authenticate</string>
+    <string name="key_type_a">A</string>
+    <string name="key_type_b">B</string>
     <string name="label_read_write_data">Read / Write Data</string>
     <string name="hint_read_write_data">Read data appears here. Write uses this value as hex.</string>
     <string name="button_read">Read</string>
@@ -17,6 +20,7 @@
     <string name="status_card_not_detected">No card detected.</string>
     <string name="status_authenticating">Authenticating...</string>
     <string name="status_card_authenticated">Card authenticated.</string>
+    <string name="status_card_authenticated_with_key">Card authenticated with Key %1$s.</string>
     <string name="status_authentication_failed">Authentication failed.</string>
     <string name="status_reading_card">Reading card...</string>
     <string name="status_card_read_failed">Card read failed.</string>

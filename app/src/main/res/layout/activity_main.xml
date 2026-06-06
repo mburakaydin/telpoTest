@@ -55,6 +55,13 @@
             android:maxLines="1"
             android:text="@string/default_mifare_key" />
 
+        <Switch
+            android:id="@+id/keyTypeSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/switch_use_key_b" />
+
         <Button
             android:id="@+id/authenticateButton"
             android:layout_width="match_parent"

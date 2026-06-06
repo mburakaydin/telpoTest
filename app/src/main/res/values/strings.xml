@@ -28,4 +28,8 @@
     <string name="status_operation_failed">İşlem başarısız: %1$s</string>
     <string name="status_invalid_hex">Lütfen geçerli bir hex değeri girin.</string>
     <string name="status_key_length_invalid">Anahtar %1$d bayt (%2$d hex karakter) olmalıdır.</string>
+    <string name="switch_use_key_b">Anahtar B kullan (kapali = Anahtar A)</string>
+    <string name="key_type_a">A</string>
+    <string name="key_type_b">B</string>
+    <string name="status_card_authenticated_with_key">Kart Anahtar %1$s ile dogrulandi.</string>
 </resources>

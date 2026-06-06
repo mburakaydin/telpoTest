@@ -3,6 +3,7 @@ package com.robopine.telpotest
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -14,6 +15,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : ComponentActivity() {
     private lateinit var deviceManager: NeoDeviceManager
     private lateinit var keyEditText: EditText
+    private lateinit var keyTypeSwitch: Switch
     private lateinit var dataEditText: EditText
     private lateinit var statusTextView: TextView
     private lateinit var actionButtons: List<Button>
@@ -24,6 +26,7 @@ class MainActivity : ComponentActivity() {
 
         deviceManager = NeoDeviceManager(this)
         keyEditText = findViewById(R.id.keyEditText)
+        keyTypeSwitch = findViewById(R.id.keyTypeSwitch)
         dataEditText = findViewById(R.id.dataEditText)
         statusTextView = findViewById(R.id.statusTextView)
 
@@ -64,12 +67,19 @@ class MainActivity : ComponentActivity() {
 
     private fun runAuthenticate() = lifecycleScope.launch {
         val key = parseHex(keyEditText.text.toString(), expectedBytes = 6) ?: return@launch
+        val keyType = if (keyTypeSwitch.isChecked) KEY_TYPE_B else KEY_TYPE_A
+        val keyTypeName = if (keyTypeSwitch.isChecked) {
+            getString(R.string.key_type_b)
+        } else {
+            getString(R.string.key_type_a)
+        }
+
         runAction(getString(R.string.status_authenticating)) {
             val success = withContext(Dispatchers.IO) {
-                deviceManager.mifareAuthenticate(MIFARE_BLOCK, KEY_TYPE_A, key)
+                deviceManager.mifareAuthenticate(MIFARE_BLOCK, keyType, key)
             }
             if (success) {
-                getString(R.string.status_card_authenticated)
+                getString(R.string.status_card_authenticated_with_key, keyTypeName)
             } else {
                 getString(R.string.status_authentication_failed)
             }
@@ -153,6 +163,7 @@ class MainActivity : ComponentActivity() {
     private companion object {
         private const val MIFARE_BLOCK: Byte = 4
         private const val KEY_TYPE_A: Byte = 0x01
+        private const val KEY_TYPE_B: Byte = 0x02
         private const val MIFARE_BLOCK_LENGTH = 16
         private val HEX_REGEX = Regex("^[0-9A-F]+$")
     }
