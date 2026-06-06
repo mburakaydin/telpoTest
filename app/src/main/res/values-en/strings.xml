@@ -15,6 +15,8 @@
     <string name="hint_read_write_data">Read data appears here. Write uses this value as hex.</string>
     <string name="button_read">Read</string>
     <string name="button_write">Write</string>
+    <string name="label_output">Output</string>
+    <string name="hint_output">Operation messages appear here.</string>
     <string name="status_reader_initialized">Reader initialized. Please place a MIFARE card and press Poll Card.</string>
     <string name="status_reader_init_failed">Reader initialization failed: %1$s</string>
     <string name="status_polling_card">Polling card...</string>

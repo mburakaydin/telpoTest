@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +17,7 @@ class MainActivity : ComponentActivity() {
     private lateinit var keyEditText: EditText
     private lateinit var keyTypeSwitch: Switch
     private lateinit var dataEditText: EditText
+    private lateinit var outputEditText: EditText
     private lateinit var statusTextView: TextView
     private lateinit var actionButtons: List<Button>
 
@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
         keyEditText = findViewById(R.id.keyEditText)
         keyTypeSwitch = findViewById(R.id.keyTypeSwitch)
         dataEditText = findViewById(R.id.dataEditText)
+        outputEditText = findViewById(R.id.outputEditText)
         statusTextView = findViewById(R.id.statusTextView)
 
         val pollButton = findViewById<Button>(R.id.pollButton)
@@ -168,7 +169,18 @@ class MainActivity : ComponentActivity() {
 
     private fun showStatus(message: String) {
         statusTextView.text = message
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        appendOutput(message)
+    }
+
+    private fun appendOutput(message: String) {
+        val currentText = outputEditText.text.toString()
+        val nextText = if (currentText.isBlank()) {
+            message
+        } else {
+            "$currentText\n$message"
+        }
+        outputEditText.setText(nextText)
+        outputEditText.setSelection(outputEditText.text.length)
     }
 
     private fun setActionsEnabled(enabled: Boolean) {

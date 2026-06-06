@@ -40,4 +40,6 @@
     <string name="status_writing_block">Blok %1$d yaziliyor...</string>
     <string name="status_card_write_success_with_block">Blok %1$d basariyla yazildi.</string>
     <string name="status_invalid_block">Blok %1$d ile %2$d arasinda olmalidir.</string>
+    <string name="label_output">Cikti</string>
+    <string name="hint_output">Islem mesajlari burada gorunur.</string>
 </resources>
