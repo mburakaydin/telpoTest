@@ -217,7 +217,7 @@ class NeoDeviceManager(
     }
 
 
-    suspend fun poll(): Boolean {
+    suspend fun poll(): ByteArray? {
 
         val responseData = ResDataStruct()
 
@@ -227,12 +227,60 @@ class NeoDeviceManager(
         if(result != 0) {
             Log.d("POLL", "Poll failed: ${device?.device_getResponseCodeString(result)}")
             delay(500)
-            return false
+            return null
         }
 
         Log.d("POLL", "Poll success: ${device?.device_getResponseCodeString(result)}")
+        Log.d("POLL", "Poll data: ${responseData.resData.toHexStr()}")
 
-        return true
+        val uid = parseUid(responseData.resData)
+        if (uid == null) {
+            Log.d("POLL", "UID not found in poll response")
+        } else {
+            Log.d("POLL", "UID: ${uid.toHexStr()}")
+        }
+
+        return uid
+    }
+
+    private fun parseUid(data: ByteArray): ByteArray? {
+        val dfec0fPayload = extractDfec0fValue(data) ?: return null
+
+        if (dfec0fPayload.size < 5) {
+            return null
+        }
+
+        val uidLen = dfec0fPayload[4].toInt() and 0xFF
+        val uidStart = 5
+        val uidEnd = uidStart + uidLen
+
+        if (uidLen <= 0 || uidEnd > dfec0fPayload.size) {
+            return null
+        }
+
+        return dfec0fPayload.copyOfRange(uidStart, uidEnd)
+    }
+
+    private fun extractDfec0fValue(data: ByteArray): ByteArray? {
+        val tag0 = 0xDF.toByte()
+        val tag1 = 0xEC.toByte()
+        val tag2 = 0x0F.toByte()
+
+        for (i in 0 until data.size - 3) {
+            if (data[i] == tag0 && data[i + 1] == tag1 && data[i + 2] == tag2) {
+                val length = data[i + 3].toInt() and 0xFF
+                val valueStart = i + 4
+                val valueEnd = valueStart + length
+
+                return if (valueEnd <= data.size) {
+                    data.copyOfRange(valueStart, valueEnd)
+                } else {
+                    null
+                }
+            }
+        }
+
+        return null
     }
 
 

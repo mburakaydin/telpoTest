@@ -14,6 +14,7 @@
     <string name="status_reader_init_failed">Okuyucu başlatılamadı: %1$s</string>
     <string name="status_polling_card">Kart taranıyor...</string>
     <string name="status_card_detected">Kart algılandı.</string>
+    <string name="status_card_detected_with_uid">Kart algılandı. UID: %1$s</string>
     <string name="status_card_not_detected">Kart algılanamadı.</string>
     <string name="status_authenticating">Doğrulanıyor...</string>
     <string name="status_card_authenticated">Kart doğrulandı.</string>

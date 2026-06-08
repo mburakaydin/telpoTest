@@ -21,6 +21,7 @@
     <string name="status_reader_init_failed">Reader initialization failed: %1$s</string>
     <string name="status_polling_card">Polling card...</string>
     <string name="status_card_detected">Card detected.</string>
+    <string name="status_card_detected_with_uid">Card detected. UID: %1$s</string>
     <string name="status_card_not_detected">No card detected.</string>
     <string name="status_authenticating">Authenticating...</string>
     <string name="status_card_authenticated">Card authenticated.</string>

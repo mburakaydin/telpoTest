@@ -59,9 +59,9 @@ class MainActivity : ComponentActivity() {
 
     private fun runPoll() = lifecycleScope.launch {
         runAction(getString(R.string.status_polling_card)) {
-            val success = deviceManager.poll()
-            if (success) {
-                getString(R.string.status_card_detected)
+            val uid = deviceManager.poll()
+            if (uid != null) {
+                getString(R.string.status_card_detected_with_uid, uid.toHexStr())
             } else {
                 getString(R.string.status_card_not_detected)
             }
